@@ -1,0 +1,4 @@
+vendor/*
+*.sum
+config.yaml
+.idea

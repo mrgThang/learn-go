@@ -1,0 +1,9 @@
+MYSQL:
+  PORT: 3307
+  HOST: localhost
+  USERNAME: root
+  PASSWORD: secret
+  DATABASE: learn_go
+  OPTIONS: "?parseTime=true&timeout=90s"
+
+MIGRATION_FOLDER: file://migrations
