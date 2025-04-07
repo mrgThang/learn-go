@@ -7,4 +7,3 @@ MYSQL:
   OPTIONS: "?parseTime=true&timeout=90s"
 
 MIGRATION_FOLDER: file://
-APIKEY: fdiafjdosfiadjoafifdjfdadf

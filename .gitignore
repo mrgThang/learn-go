@@ -2,3 +2,4 @@ vendor/*
 *.sum
 config.yaml
 .idea
+run_linh_tinh/*
