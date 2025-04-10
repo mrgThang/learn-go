@@ -1,6 +1,7 @@
 package concurrency
 
 import (
+	"fmt"
 	"sync"
 	"testing"
 	"time"
@@ -11,43 +12,43 @@ var messages []string
 func TestChatChannel(t *testing.T) {
 	mutex := &sync.RWMutex{}
 	wg := sync.WaitGroup{}
-	wg.Add(2)
 	go func() {
-		defer wg.Done()
 		readAction(mutex)
 	}()
+	wg.Add(1)
 	go func() {
 		defer wg.Done()
 		writeAction(mutex)
 	}()
-
 	wg.Wait()
 }
 
 func readAction(mutex *sync.RWMutex) {
-	for i := 0; i < 10; i++ {
+	readTimes := 0
+	for {
+		readTimes++
 		wg := sync.WaitGroup{}
 		wg.Add(10)
 		for j := 0; j < 10; j++ {
 			go func() {
 				defer wg.Done()
 				mutex.RLock()
-				print(readMessage(messages))
+				println(fmt.Sprintf("Read times %d: %d", readTimes, readMessage(messages)))
 				mutex.RUnlock()
-				time.Sleep(1 * time.Millisecond)
 			}()
 		}
 		wg.Wait()
+		time.Sleep(1 * time.Millisecond)
 	}
 }
 
 func writeAction(mutex *sync.RWMutex) {
 	for i := 0; i < 10; i++ {
 		mutex.Lock()
-		print("W")
+		println("W")
 		messages = writeMessage(messages)
-		time.Sleep(1 * time.Millisecond)
 		mutex.Unlock()
+		time.Sleep(2 * time.Millisecond)
 	}
 }
 
