@@ -1,3 +1,4 @@
+// example of use high order function to create middleware of api
 package function
 
 import (
